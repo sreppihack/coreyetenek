@@ -1,12 +1,612 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Benim Sitem</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yetenek Geliştirme ve Meslek Yönlendirme Merkezi</title>
+    <style>
+        :root {
+            --primary-color: #2196F3; /* Açık mavi */
+            --secondary-color: #E53935; /* Bayrak kırmızısı */
+            --light-bg: #f5f9ff;
+            --dark-bg: #1A2A40;
+            --text-color: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 42, 64, 0.8), rgba(26, 42, 64, 0.8)), url('/api/placeholder/1200/600') no-repeat center center;
+            background-size: cover;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* About Section */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Services */
+        .services {
+            background-color: white;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 2.5rem;
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        .service-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        /* References */
+        .references {
+            background-color: var(--light-bg);
+        }
+        
+        .references-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .reference-item {
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        /* Pricing */
+        .pricing {
+            background-color: white;
+        }
+        
+        .pricing-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .pricing-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Contact */
+        .contact {
+            background-color: var(--light-bg);
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .about-content, .footer-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Hoş Geldiniz!</h1>
-  <p>Bu site GitHub Pages üzerinden yayınlandı..</p>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">Y</div>
+                <span>YetenekMerkezi</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">Hakkımızda</a></li>
+                    <li><a href="#services">Hizmetlerimiz</a></li>
+                    <li><a href="#references">Referanslar</a></li>
+                    <li><a href="#pricing">Fiyatlandırma</a></li>
+                    <li><a href="#contact">İletişim</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Yeteneklerinizi Keşfedin, Geleceğinizi Şekillendirin</h1>
+                <p>Yetenek Geliştirme ve Meslek Yönlendirme Merkezi olarak misyonumuz, çocukların ve gençlerin doğal yeteneklerini keşfetmelerine ve bu yetenekleri geleceğin mesleklerine dönüştürmelerine yardımcı olmaktır.</p>
+                <a href="#contact" class="btn btn-primary">Bize Ulaşın</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">Hakkımızda</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Gelecek zamanlarda insanlığın kesin çizgilerle ikiye ayrılacağı dünyada...emek yoğun çalışmaktan başka imkanı olmayanların zor zamanlari yaşayacağı gelecekte her bireyin kendini ve geleceğini korumak için yeteneklerine uyumlu bir meslek sahibi olması gerekecektir. Tamda buradan başlayan yeteneklerin mesleklerle örtüşmesini sağlayıcı ciddi çalışma ve organizasyonlarda önlem almak zorundayız...</p>
+                    <br>
+                    <p>Çocuk ve gençlerimizin modern anlamda köleler olmasına ve harcanmasına engel olmak her ailenin, her bireyin, toplumun ve devletin görevidir.</p>
+                    <br>
+                    <p><strong>Misyonumuz:</strong> Mağduriyet yaşayacak her tarafın uyanmasını sağlayıcı olmak.</p>
+                    <p><strong>Vizyonumuz:</strong> Çocuk genç ve yetişkinlerin gelecekte yeteneklerini, meslekleştirmelerini sağlayıcı çalışmalar yapmak.</p>
+                    <br>
+                    <p>Vizyon ve misyonumuz çerçevesinde mesleki eğilim, yeteneklere ilişkin test, envanter, eğitim, staj imkanları sağlamakla başlayacak hizmetlerimiz, köklü bir ekol ve uygulanabilir sistem olacaktır.</p>
+                    <br>
+                    <p class="signature"><strong>Çetin OLGUN</strong><br>
+                    Emekli Eğitim Yöneticisi<br>
+                    Personel Y. ve Organizasyon Bilim Uzmanı<br>
+                    Yetenek Eğitim ve Yönetim Bilim Uzmanı</p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/500/400" alt="Yetenek Eğitimi">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section services">
+        <div class="container">
+            <h2 class="section-title">Hizmetlerimiz</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">1</div>
+                    <div class="service-content">
+                        <h3 class="service-title">1. Aşama: Testler ve Envanterler</h3>
+                        <p>Yetenek, zeka testleri, Mesleki İlgi ve Değerler Envanteri, Öğrenme Stilleri ve Davranışları Envanterleri, Kişisel Algı Ölçeği.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">2</div>
+                    <div class="service-content">
+                        <h3 class="service-title">2. Aşama: Online Sınavlar</h3>
+                        <p>Türkçe, Matematik, Fen ve Sosyal Bilgiler, Fizik, Kimya, Biyoloji, Felsefe, Mantık online sınavlar.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">3</div>
+                    <div class="service-content">
+                        <h3 class="service-title">3. Aşama: Mülakat</h3>
+                        <p>Yüzyüze ve online mülakat seçenekleri ile yeteneklerinizin derinlemesine analizi.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">4</div>
+                    <div class="service-content">
+                        <h3 class="service-title">4. Aşama: Ara Değerlendirme</h3>
+                        <p>Yetenek, mesleki ilgilerine göre Ara test ve envanter çalışmaları.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">5</div>
+                    <div class="service-content">
+                        <h3 class="service-title">5. Aşama: Eğitim</h3>
+                        <p>Planlanmış modüler online eğitim programları.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">6</div>
+                    <div class="service-content">
+                        <h3 class="service-title">6. Aşama: Final</h3>
+                        <p>Son test ve envanter çalışmaları ile sürecin tamamlanması.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">7</div>
+                    <div class="service-content">
+                        <h3 class="service-title">7. Aşama: Sonuç</h3>
+                        <p>Değerlendirme ve Sonuç Raporları ile mesleki yönlendirme.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- References Section -->
+    <section id="references" class="section references">
+        <div class="container">
+            <h2 class="section-title">Referanslarımız</h2>
+            <div class="references-list">
+                <div class="reference-item">Tevfik İleri AİHL</div>
+                <div class="reference-item">Ş. Cengiz POLAT Teknoloji AİHL</div>
+                <div class="reference-item">Önder Kulüpleri</div>
+                <div class="reference-item">Özel Aziziye Okulları</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section pricing">
+        <div class="container">
+            <h2 class="section-title">Fiyatlandırma</h2>
+            <div class="pricing-card">
+                <h3 class="pricing-title">Adil Fiyatlandırma Politikamız</h3>
+                <p>Asgari ücret ve altındaki maaşla çalışanların çocuklarına hizmet ve organizasyon giderleri hariç <strong>ücretsizdir</strong>.</p>
+                <br>
+                <p>Diğer gelir grupları için fiyatlandırma özel görüşmelerde kararlaştırılacaktır.</p>
+                <br>
+                <p>Amacımız, her çocuğun ve gencin yeteneklerini keşfetmesine ve geliştirmesine yardımcı olmaktır. Ekonomik durum, bu fırsata erişimin önünde bir engel olmamalıdır.</p>
+                <br>
+                <div style="text-align: center;">
+                    <a href="#contact" class="btn btn-primary">Detaylı Bilgi İçin İletişime Geçin</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">İletişim</h2>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Adınız Soyadınız</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-posta Adresiniz</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon Numaranız</label>
+                        <input type="tel" id="phone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mesajınız</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Gönder</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 class="footer-title">YetenekMerkezi</h3>
+                    <p>Çocuk ve gençlerimizin yeteneklerini keşfetmelerine ve geleceğe hazırlanmalarına yardımcı oluyoruz.</p>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-title">Hızlı Erişim</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">Hakkımızda</a></li>
+                        <li><a href="#services">Hizmetlerimiz</a></li>
+                        <li><a href="#references">Referanslar</a></li>
+                        <li><a href="#pricing">Fiyatlandırma</a></li>
+                        <li><a href="#contact">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 class="footer-title">İletişim Bilgileri</h3>
+                    <ul class="footer-links">
+                        <li><i class="fa fa-map-marker"></i> Merkez Ofis, Ankara, Türkiye</li>
+                        <li><i class="fa fa-phone"></i> +90 (312) 123 45 67</li>
+                        <li><i class="fa fa-envelope"></i> info@yetenekmerkezi.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 YetenekMerkezi. Tüm Hakları Saklıdır.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
